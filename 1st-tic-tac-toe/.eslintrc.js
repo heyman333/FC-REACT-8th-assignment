@@ -13,7 +13,6 @@ module.exports = {
     "no-unused-vars": 0,
     "comma-dangle": ["error", "always-multiline"],
     semi: [2, "always"],
-
     "space-before-function-paren": ["error", "never"],
     "no-new-object": "error",
     "no-array-constructor": "error",
