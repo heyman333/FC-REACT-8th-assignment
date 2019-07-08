@@ -1,8 +1,8 @@
 import React from "react";
-import "./App.css";
+import Game from "./components/Game";
 
-const App: React.FunctionComponent = props => {
-  return <div>hello react!</div>;
+const App: React.FunctionComponent = () => {
+  return <Game />;
 };
 
 export default App;

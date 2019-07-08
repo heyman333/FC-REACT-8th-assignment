@@ -1,0 +1,16 @@
+$border-color: black;
+
+.wrap {
+  display: flex;
+  justify-content: flex-start;
+  padding: 1.5rem;
+}
+
+.descBoard {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  margin-left: 20px;
+  border: $border-color 1px solid;
+  padding: 1.5rem;
+}
