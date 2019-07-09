@@ -2,14 +2,28 @@ import React from "react";
 import "../styles/square.scss";
 
 interface IProps {
-  whatChecked?: "O" | "X";
+  whatChecked: "O" | "X" | null;
+  onPressSquare: (index: number) => void;
+  index: number;
+  disabled: boolean;
 }
 
-const Square: React.FunctionComponent<IProps> = ({ whatChecked }) => {
+const Square: React.FunctionComponent<IProps> = ({
+  whatChecked,
+  onPressSquare,
+  index,
+  disabled,
+}) => {
+  const onClick = (index: number) => () => {
+    onPressSquare(index);
+  };
+
   if (whatChecked === "O") {
     return (
       <div>
-        <button>O</button>
+        <button id="squareButton" onClick={onClick(index)} disabled={disabled}>
+          O
+        </button>
       </div>
     );
   }
@@ -17,14 +31,16 @@ const Square: React.FunctionComponent<IProps> = ({ whatChecked }) => {
   if (whatChecked === "X") {
     return (
       <div>
-        <button>X</button>
+        <button id="squareButton" onClick={onClick(index)} disabled={disabled}>
+          X
+        </button>
       </div>
     );
   }
 
   return (
     <div>
-      <button />
+      <button id="squareButton" onClick={onClick(index)} disabled={disabled} />
     </div>
   );
 };

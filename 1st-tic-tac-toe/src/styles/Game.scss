@@ -3,6 +3,7 @@ $border-color: black;
 .wrap {
   display: flex;
   justify-content: flex-start;
+  align-items: flex-start;
   padding: 1.5rem;
 }
 
@@ -13,4 +14,11 @@ $border-color: black;
   margin-left: 20px;
   border: $border-color 1px solid;
   padding: 1.5rem;
+}
+
+#time-travel-button {
+  border: 1px solid $border-color;
+  width: 100px;
+  margin: 10px 20px;
+  height: 30px;
 }

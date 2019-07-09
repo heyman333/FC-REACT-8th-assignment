@@ -1,46 +1,37 @@
 import React from "react";
-import Square from "./Square";
 
+import Square from "./Square";
 import "../styles/board.scss";
 
-// TODO: Array.map으로 처리
-const Board: React.FunctionComponent = () => {
+interface IProps {
+  currentGame: Array<"O" | "X" | null>;
+  onPressSquare: (index: number) => void;
+}
+
+const Board: React.FunctionComponent<IProps> = ({ currentGame, onPressSquare }) => {
   return (
     <table>
       <tbody>
-        <tr>
-          <td>
-            <Square whatChecked="X" />
-          </td>
-          <td>
-            <Square whatChecked="O" />
-          </td>
-          <td>
-            <Square whatChecked="X" />
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <Square whatChecked="X" />
-          </td>
-          <td>
-            <Square whatChecked="X" />
-          </td>
-          <td>
-            <Square whatChecked="X" />
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <Square whatChecked="X" />
-          </td>
-          <td>
-            <Square whatChecked="X" />
-          </td>
-          <td>
-            <Square whatChecked="X" />
-          </td>
-        </tr>
+        {new Array(3).fill(undefined).map((__, upperIndex) => {
+          return (
+            <tr key={upperIndex}>
+              {new Array(3).fill(undefined).map((__, lowerIndex) => {
+                const index = (upperIndex + 1) * 3 - (3 - lowerIndex);
+
+                return (
+                  <td key={lowerIndex}>
+                    <Square
+                      disabled={currentGame[index] !== null}
+                      whatChecked={currentGame[index]}
+                      onPressSquare={onPressSquare}
+                      index={index}
+                    />
+                  </td>
+                );
+              })}
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   );

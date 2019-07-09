@@ -6,9 +6,13 @@ div {
   height: 100%;
 }
 
-button {
+#squareButton {
+  font-size: 20px;
   width: inherit;
-  height: inherit;
+  height: 50px;
   border: none;
   background-color: transparent;
+  &:disabled {
+    color: orange;
+  }
 }
