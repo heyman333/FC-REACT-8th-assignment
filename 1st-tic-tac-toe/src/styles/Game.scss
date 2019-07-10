@@ -1,5 +1,11 @@
 $border-color: black;
 
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+}
+
 .wrap {
   display: flex;
   justify-content: flex-start;
@@ -14,6 +20,20 @@ $border-color: black;
   margin-left: 20px;
   border: $border-color 1px solid;
   padding: 1.5rem;
+}
+
+.time-travel-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.victoryPhrase {
+  font-size: 20px;
+  color: royalblue;
+}
+
+#reset {
+  border: 1px solid $border-color;
 }
 
 #time-travel-button {

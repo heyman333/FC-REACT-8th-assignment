@@ -6,6 +6,7 @@ interface IProps {
   onPressSquare: (index: number) => void;
   index: number;
   disabled: boolean;
+  gameOver: boolean;
 }
 
 const Square: React.FunctionComponent<IProps> = ({
@@ -13,6 +14,7 @@ const Square: React.FunctionComponent<IProps> = ({
   onPressSquare,
   index,
   disabled,
+  gameOver,
 }) => {
   const onClick = (index: number) => () => {
     onPressSquare(index);
@@ -21,7 +23,7 @@ const Square: React.FunctionComponent<IProps> = ({
   if (whatChecked === "O") {
     return (
       <div>
-        <button id="squareButton" onClick={onClick(index)} disabled={disabled}>
+        <button id="squareButton" onClick={onClick(index)} disabled={disabled || gameOver}>
           O
         </button>
       </div>
@@ -31,7 +33,7 @@ const Square: React.FunctionComponent<IProps> = ({
   if (whatChecked === "X") {
     return (
       <div>
-        <button id="squareButton" onClick={onClick(index)} disabled={disabled}>
+        <button id="squareButton" onClick={onClick(index)} disabled={disabled || gameOver}>
           X
         </button>
       </div>
@@ -40,7 +42,7 @@ const Square: React.FunctionComponent<IProps> = ({
 
   return (
     <div>
-      <button id="squareButton" onClick={onClick(index)} disabled={disabled} />
+      <button id="squareButton" onClick={onClick(index)} disabled={disabled || gameOver} />
     </div>
   );
 };

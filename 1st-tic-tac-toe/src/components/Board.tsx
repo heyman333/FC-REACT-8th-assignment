@@ -1,14 +1,16 @@
 import React from "react";
+import { CurrentGame } from "./Game";
 
 import Square from "./Square";
 import "../styles/board.scss";
 
 interface IProps {
-  currentGame: Array<"O" | "X" | null>;
+  gameOver: boolean;
+  currentGame: CurrentGame;
   onPressSquare: (index: number) => void;
 }
 
-const Board: React.FunctionComponent<IProps> = ({ currentGame, onPressSquare }) => {
+const Board: React.FunctionComponent<IProps> = ({ currentGame, onPressSquare, gameOver }) => {
   return (
     <table>
       <tbody>
@@ -21,6 +23,7 @@ const Board: React.FunctionComponent<IProps> = ({ currentGame, onPressSquare }) 
                 return (
                   <td key={lowerIndex}>
                     <Square
+                      gameOver={gameOver}
                       disabled={currentGame[index] !== null}
                       whatChecked={currentGame[index]}
                       onPressSquare={onPressSquare}
