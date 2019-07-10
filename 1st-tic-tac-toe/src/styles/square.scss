@@ -1,0 +1,18 @@
+div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+#squareButton {
+  font-size: 20px;
+  width: inherit;
+  height: 50px;
+  border: none;
+  background-color: transparent;
+  &:disabled {
+    color: orange;
+  }
+}
