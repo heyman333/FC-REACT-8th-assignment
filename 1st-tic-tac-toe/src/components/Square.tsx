@@ -1,8 +1,10 @@
 import React from "react";
 import "../styles/square.scss";
 
+import { PlayerState } from "./Game";
+
 interface IProps {
-  whatChecked: "O" | "X" | null;
+  whatChecked: PlayerState;
   onPressSquare: (index: number) => void;
   index: number;
   disabled: boolean;
@@ -20,29 +22,11 @@ const Square: React.FunctionComponent<IProps> = ({
     onPressSquare(index);
   };
 
-  if (whatChecked === "O") {
-    return (
-      <div>
-        <button id="squareButton" onClick={onClick(index)} disabled={disabled || gameOver}>
-          O
-        </button>
-      </div>
-    );
-  }
-
-  if (whatChecked === "X") {
-    return (
-      <div>
-        <button id="squareButton" onClick={onClick(index)} disabled={disabled || gameOver}>
-          X
-        </button>
-      </div>
-    );
-  }
-
   return (
     <div>
-      <button id="squareButton" onClick={onClick(index)} disabled={disabled || gameOver} />
+      <button id="squareButton" onClick={onClick(index)} disabled={disabled || gameOver}>
+        {whatChecked}
+      </button>
     </div>
   );
 };
