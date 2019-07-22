@@ -28,7 +28,6 @@ const SubTitle = styled.div`
   font-family: Roboto;
   font-size: 27px;
   font-weight: bold;
-  text-transform: uppercase;
 `;
 
 const Underline = styled.div`
@@ -56,7 +55,9 @@ const SignIn = () => {
       <Col span={24}>
         <Content>
           <Title>MARKTUBE REVIEW SERVICE FOR BOOKS</Title>
-          <SubTitle>PLEASE SHARE YOUR OPINION ON WEB DEVELOPMENT BOOKS.</SubTitle>
+          <SubTitle>
+            Please share your opinion on web development books.
+          </SubTitle>
           <Underline />
           <Contents>
             <SignInBg />

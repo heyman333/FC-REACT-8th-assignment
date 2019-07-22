@@ -11,24 +11,31 @@ const Wrap = styled(Col)`
 `;
 
 const Titie = styled.div`
+  flex-direction: column;
   text-align: center;
   font-family: Roboto;
-  font-size: 25px;
+  font-size: 18px;
   font-weight: bold;
   color: #610c29;
-  text-transform: uppercase;
   justify-content: center;
   align-items: center;
   display: flex;
   flex: 0.2;
+  white-space: pre-line;
+`;
+
+const SubTitie = styled.div`
+  text-align: center;
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: bold;
+  color: #610c29;
 `;
 
 const Body = styled.div`
   flex: 1;
   display: flex;
-  justify-content: space-evenly;
   flex-direction: column;
-  padding: 30px 0px;
 `;
 
 const Bottom = styled.div`
@@ -42,6 +49,7 @@ const Bottom = styled.div`
 const Label = styled.label`
   size: 14px;
   color: black;
+  margin: 15px 0 15px;
 `;
 
 const SignInButton = styled.button`
@@ -54,7 +62,7 @@ const SignInButton = styled.button`
   border: none;
   background-color: rosybrown;
   color: black;
-  margin-top: 10px;
+  margin-top: 25px;
 `;
 
 const BottomRow = styled.div`
@@ -66,7 +74,7 @@ const BottomRow = styled.div`
 
 const BottomButton = styled.button`
   height: 30px;
-  padding: 0 20px;
+  width: 100px;
   background-color: transparent;
   border: 1px rosybrown solid;
 `;
@@ -75,6 +83,7 @@ const StyledTextInput = styled.input`
   outline: none;
   border: 1px solid brown;
   height: 30px;
+  padding-left: 10px;
   &:focus {
     border: 1px solid orange;
   }
@@ -102,7 +111,10 @@ class SigninForm extends React.Component {
   render() {
     return (
       <Wrap>
-        <Titie>LOG IN. START SEARCHING</Titie>
+        <Titie>
+          {"LOG IN"}
+          <SubTitie>{"START SEARCHING"}</SubTitie>
+        </Titie>
         <Body>
           <Label htmlFor="email-input">
             Email <span style={{ color: "red" }}>*</span>
