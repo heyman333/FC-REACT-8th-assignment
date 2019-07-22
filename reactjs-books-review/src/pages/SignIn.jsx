@@ -1,7 +1,9 @@
 import React from "react";
 import { Row, Col } from "antd";
 import styled from "styled-components";
+
 import SignInBg from "../components/SignInBg";
+import SigninForm from "../components/SignInForm";
 
 const Page = styled(Row).attrs({ type: "flex", align: "middle" })`
   height: 100vh;
@@ -58,8 +60,7 @@ const SignIn = () => {
           <Underline />
           <Contents>
             <SignInBg />
-            <SignInBg />
-            {/* <SigninForm /> */}
+            <SigninForm />
           </Contents>
         </Content>
       </Col>
