@@ -1,7 +1,8 @@
 import React from "react";
-import { Col } from "antd";
+import { Col, message } from "antd";
 import styled from "styled-components";
 import { withRouter } from "react-router-dom";
+import axios from "axios";
 
 const Wrap = styled(Col)`
   display: flex;
@@ -60,7 +61,8 @@ const SignInButton = styled.button`
   align-items: center;
   background-color: transparent;
   border: none;
-  background-color: rosybrown;
+  background-color: ${({ loading }) =>
+    loading === "true" ? "brown" : "rosybrown"};
   color: black;
   margin-top: 25px;
 `;
@@ -93,19 +95,62 @@ class SigninForm extends React.Component {
   _emailInput = React.createRef();
   _passwordInput = React.createRef();
 
-  onSignin = () => {
+  state = {
+    loading: false,
+  };
+
+  componentDidMount() {
+    window.addEventListener("keydown", event => {
+      if (event.defaultPrevented) {
+        return; // Should do nothing if the default action has been cancelled
+      }
+
+      let handled = false;
+      if (event.keyCode === 13) {
+        // Handle the event with KeyboardEvent.keyCode and set handled true.
+        this.onSignin();
+        handled = true;
+      }
+
+      if (handled) {
+        // Suppress "double action" if event handled
+        event.preventDefault();
+      }
+    });
+  }
+
+  onSignin = async () => {
     const { history } = this.props;
     const email = this._emailInput.current.value;
     const password = this._passwordInput.current.value;
     if (!email) {
-      alert("아이디를 입력해주세요!");
+      this._emailInput.current.focus();
+      message.error("아이디를 입력해주세요!");
       return;
     }
+
     if (!password) {
-      alert("비밀번호를 입력해주세요!");
+      this._passwordInput.current.focus();
+      message.error("비밀번호를 입력해주세요!");
       return;
     }
-    history.replace("/");
+
+    this.setState({ loading: true });
+    try {
+      const res = await axios.post("https://api.marktube.tv/v1/me", {
+        email,
+        password,
+      });
+      console.log("token", res.data.token);
+      window.localStorage.setItem("token", res.data.token);
+    } catch (error) {
+      message.error(`${error.response.data.error}`);
+      this.setState({ loading: false });
+      return;
+    }
+
+    //사인인 성공
+    history.push("/");
   };
 
   render() {
@@ -135,7 +180,13 @@ class SigninForm extends React.Component {
             id="password-input"
             type="password"
           />
-          <SignInButton onClick={this.onSignin}>SIGN IN</SignInButton>
+          <SignInButton
+            onClick={this.onSignin}
+            loading={this.state.loading ? "true" : undefined}
+            disabled={this.state.loading}
+          >
+            SIGN IN
+          </SignInButton>
         </Body>
         <Bottom>
           <BottomRow>
