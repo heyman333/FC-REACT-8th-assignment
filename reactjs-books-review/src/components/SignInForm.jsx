@@ -1,7 +1,9 @@
 import React from "react";
-import { Col, message } from "antd";
 import styled from "styled-components";
+import LoadingButton from "../components/shared/LoadingButton";
 import { withRouter } from "react-router-dom";
+import { Col, message } from "antd";
+
 import axios from "axios";
 
 const Wrap = styled(Col)`
@@ -53,16 +55,15 @@ const Label = styled.label`
   margin: 15px 0 15px;
 `;
 
-const SignInButton = styled.button`
+const SignInButton = styled(LoadingButton)`
   width: 100px;
-  height: 30px;
+  height: 35px;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: transparent;
   border: none;
-  background-color: ${({ loading }) =>
-    loading === "true" ? "brown" : "rosybrown"};
+  background-color: rosybrown;
   color: black;
   margin-top: 25px;
 `;
@@ -182,7 +183,7 @@ class SigninForm extends React.Component {
           />
           <SignInButton
             onClick={this.onSignin}
-            loading={this.state.loading ? "true" : undefined}
+            isLoading={this.state.loading}
             disabled={this.state.loading}
           >
             SIGN IN
