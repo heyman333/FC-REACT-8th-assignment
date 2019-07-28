@@ -151,7 +151,9 @@ class SigninForm extends React.Component {
     }
 
     //사인인 성공
-    history.push("/");
+    message.success(`환영합니다 ${email}님`, 1, () => {
+      history.push("/");
+    });
   };
 
   render() {
