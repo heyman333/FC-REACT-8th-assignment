@@ -1,6 +1,8 @@
 import React from "react";
 import axios from "axios";
 
+import AuthHeader from "../components/shared/AuthHeader";
+
 const Book = props => {};
 
 const Home = ({ token }) => {
@@ -25,6 +27,7 @@ const Home = ({ token }) => {
 
   return (
     <div>
+      <AuthHeader />
       <h1>Home</h1>
       {books.map(book => (
         <Book />
