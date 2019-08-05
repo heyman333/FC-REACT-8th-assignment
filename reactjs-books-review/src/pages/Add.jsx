@@ -5,6 +5,13 @@ import styled from "styled-components";
 
 import MainLayout from "../components/layout/MainLayout";
 
+const { TextArea } = Input;
+
+const StyledTextArea = styled(TextArea).attrs({ rows: 6, maxLength: 250 })`
+  width: 250px;
+  margin-bottom: 20px;
+`;
+
 const FormWrap = styled.div`
   display: flex;
   flex-direction: column;
@@ -71,7 +78,7 @@ const Add = () => {
 
         <Group>
           <Label htmlFor="message">감상평</Label>
-          <StyledInput
+          <StyledTextArea
             id="message"
             value={texts.message}
             onChange={onChange("message")}
