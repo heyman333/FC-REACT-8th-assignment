@@ -3,8 +3,9 @@ import styled from "styled-components";
 import LoadingButton from "../components/shared/LoadingButton";
 import { withRouter } from "react-router-dom";
 import { Col, message } from "antd";
+import { connect } from "react-redux";
 
-import axios from "axios";
+import * as AuthActions from "../store/auth";
 
 const Wrap = styled(Col)`
   display: flex;
@@ -121,7 +122,7 @@ class SigninForm extends React.Component {
   }
 
   onSignin = async () => {
-    const { history } = this.props;
+    const { history, userLogin } = this.props;
     const email = this._emailInput.current.value;
     const password = this._passwordInput.current.value;
     if (!email) {
@@ -137,20 +138,8 @@ class SigninForm extends React.Component {
     }
 
     this.setState({ loading: true });
-    try {
-      const res = await axios.post("https://api.marktube.tv/v1/me", {
-        email,
-        password,
-      });
-      console.log("token", res.data.token);
-      window.localStorage.setItem("token", res.data.token);
-    } catch (error) {
-      message.error(`${error.response.data.error}`);
-      this.setState({ loading: false });
-      return;
-    }
+    userLogin({ email, password });
 
-    //사인인 성공
     message.success(`환영합니다 ${email}님`, 1, () => {
       history.push("/");
     });
@@ -206,4 +195,9 @@ class SigninForm extends React.Component {
   }
 }
 
-export default withRouter(SigninForm);
+export default connect(
+  null,
+  {
+    userLogin: AuthActions.userLogin,
+  }
+)(withRouter(SigninForm));
