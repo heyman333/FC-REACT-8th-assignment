@@ -1,7 +1,7 @@
 import React from "react";
 import { Input, Button } from "antd";
-
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
 
 import MainLayout from "../components/layout/MainLayout";
 
@@ -50,6 +50,7 @@ const defaultTexts = {
 
 const Add = () => {
   const [texts, setTexts] = React.useState(defaultTexts);
+  const dispatch = useDispatch();
 
   const onChange = text => ({ target }) => {
     const newTexts = {

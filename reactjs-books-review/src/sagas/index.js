@@ -2,15 +2,32 @@ import { all, put, takeEvery } from "redux-saga/effects";
 import * as AuthActions from "../store/auth";
 import * as BookActions from "../store/book";
 import axios, { setAuthorization } from "../lib/axios";
+import { message } from "antd";
+
+function* userLogOutSaga({ payload }) {
+  try {
+    yield axios.delete("/me");
+    payload.history.replace("/signin");
+    localStorage.removeItem("token");
+  } catch (error) {
+    message.error(error.message);
+  }
+}
 
 function* userLoginSaga({ payload }) {
+  yield put(AuthActions.setLoading(true));
   try {
     const { data } = yield axios.post("/me", payload);
-    yield put(AuthActions.userLoginFulfilled(data));
+    yield put(AuthActions.userLoginFulfilled(data.token));
     setAuthorization(data);
+    localStorage.setItem("token", data.token);
+    message.success(`환영합니다 ${payload.email}님`, 1, () => {
+      payload.history.push("/");
+    });
   } catch (error) {
-    console.log("error", error);
+    message.error(error.message);
     yield put(AuthActions.userLoginRejected(error.response));
+    yield put(AuthActions.setLoading(false));
   }
 }
 
@@ -29,10 +46,9 @@ function* watchBook() {
 
 function* watchAuth() {
   yield takeEvery(AuthActions.USER_LOGIN, userLoginSaga);
+  yield takeEvery(AuthActions.USER_LOGOUT, userLogOutSaga);
 }
 
-// 모든 listener(watcher)를 하나로 묶어준다.
-// rootReducer에 묶어주는 그것과 같다고 보면 된다.
 export default function* root() {
   yield all([watchBook(), watchAuth()]);
 }

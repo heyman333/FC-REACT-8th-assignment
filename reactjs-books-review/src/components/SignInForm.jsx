@@ -97,10 +97,6 @@ class SigninForm extends React.Component {
   _emailInput = React.createRef();
   _passwordInput = React.createRef();
 
-  state = {
-    loading: false,
-  };
-
   componentDidMount() {
     window.addEventListener("keydown", event => {
       if (event.defaultPrevented) {
@@ -137,12 +133,7 @@ class SigninForm extends React.Component {
       return;
     }
 
-    this.setState({ loading: true });
-    userLogin({ email, password });
-
-    message.success(`환영합니다 ${email}님`, 1, () => {
-      history.push("/");
-    });
+    userLogin({ email, password, history });
   };
 
   render() {
@@ -174,8 +165,8 @@ class SigninForm extends React.Component {
           />
           <SignInButton
             onClick={this.onSignin}
-            isLoading={this.state.loading}
-            disabled={this.state.loading}
+            isLoading={this.props.loading}
+            disabled={this.props.loading}
           >
             SIGN IN
           </SignInButton>
@@ -196,7 +187,9 @@ class SigninForm extends React.Component {
 }
 
 export default connect(
-  null,
+  state => ({
+    loading: state.auth.loading,
+  }),
   {
     userLogin: AuthActions.userLogin,
   }

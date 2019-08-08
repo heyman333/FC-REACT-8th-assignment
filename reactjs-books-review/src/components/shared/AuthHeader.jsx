@@ -1,9 +1,13 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
-import axios from "axios";
 import { Row } from "antd";
 import { Button } from "antd";
 import styled from "styled-components";
 import { withRouter, Link, Redirect } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setAuthorization } from "../../lib/axios";
+
+import { setToken, userLogout } from "../../store/auth";
 
 const Wrap = styled(Row)`
   display: flex;
@@ -30,26 +34,16 @@ const ButtonWrap = styled.ul`
 `;
 
 const AuthHeader = ({ history, location }) => {
-  const onClickLogout = async () => {
-    const token = window.localStorage.getItem("token");
-    try {
-      await axios.delete("https://api.marktube.tv/v1/me", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+  const token = localStorage.getItem("token");
+  const dispatch = useDispatch();
+  dispatch(setToken(token));
 
-      window.localStorage.removeItem("token");
-      history.replace("/signin");
-    } catch (error) {
-      console.log("error", JSON.stringify(error));
-    }
+  const onClickLogout = () => {
+    dispatch(userLogout({ history }));
   };
 
-  // TODO: redux에서 토큰 가져오는 것으로 변경
-  const token = localStorage.getItem("token");
-
   if (token) {
+    setAuthorization(token);
     return (
       <Wrap>
         <ButtonWrap>
