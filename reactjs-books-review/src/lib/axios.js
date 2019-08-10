@@ -20,6 +20,7 @@ export const setAuthorization = token => {
   _currentAuthorizationToken = token;
 
   const instance = configureAxios();
+  instance.defaults.headers["Content-Type"] = "application/json";
   instance.defaults.headers.common.Authorization = token
     ? `Bearer ${token}`
     : "";

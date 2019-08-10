@@ -1,6 +1,8 @@
 import "./index.css";
 import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
+import { ConnectedRouter } from "connected-react-router";
+import { history } from "../src";
 
 import SignIn from "./pages/SignIn";
 import Home from "./pages/Home";
@@ -10,7 +12,7 @@ import { Helmet } from "react-helmet";
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <ConnectedRouter history={history}>
       <Helmet>
         <title>패스트 캠퍼스 과제-책책책 책을 읽읍시다!</title>
       </Helmet>
@@ -20,6 +22,6 @@ export default function App() {
         <Route path="/add" exact component={Add} />
         <Route component={NotFound} />
       </Switch>
-    </BrowserRouter>
+    </ConnectedRouter>
   );
 }

@@ -97,28 +97,34 @@ class SigninForm extends React.Component {
   _emailInput = React.createRef();
   _passwordInput = React.createRef();
 
+  enterEvnet = event => {
+    if (event.defaultPrevented) {
+      return; // Should do nothing if the default action has been cancelled
+    }
+
+    let handled = false;
+    if (event.keyCode === 13) {
+      // Handle the event with KeyboardEvent.keyCode and set handled true.
+      this.onSignin();
+      handled = true;
+    }
+
+    if (handled) {
+      // Suppress "double action" if event handled
+      event.preventDefault();
+    }
+  };
+
   componentDidMount() {
-    window.addEventListener("keydown", event => {
-      if (event.defaultPrevented) {
-        return; // Should do nothing if the default action has been cancelled
-      }
+    window.addEventListener("keydown", this.enterEvnet);
+  }
 
-      let handled = false;
-      if (event.keyCode === 13) {
-        // Handle the event with KeyboardEvent.keyCode and set handled true.
-        this.onSignin();
-        handled = true;
-      }
-
-      if (handled) {
-        // Suppress "double action" if event handled
-        event.preventDefault();
-      }
-    });
+  componentWillUnmount() {
+    window.removeEventListener("keydown", this.enterEvnet);
   }
 
   onSignin = async () => {
-    const { history, userLogin } = this.props;
+    const { userLogin } = this.props;
     const email = this._emailInput.current.value;
     const password = this._passwordInput.current.value;
     if (!email) {
@@ -133,7 +139,7 @@ class SigninForm extends React.Component {
       return;
     }
 
-    userLogin({ email, password, history });
+    userLogin({ email, password });
   };
 
   render() {

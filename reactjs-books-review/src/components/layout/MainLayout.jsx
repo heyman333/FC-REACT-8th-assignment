@@ -4,6 +4,8 @@ import styled from "styled-components";
 
 const Wrap = styled.div`
   padding-top: 100px;
+  display: flex;
+  flex-direction: column;
 `;
 
 const Layout = styled.div.attrs({ className: "mainLayout" })``;

@@ -1,4 +1,5 @@
-import { all, put, takeEvery } from "redux-saga/effects";
+import { replace } from "connected-react-router";
+import { select, call, all, put, takeLatest } from "redux-saga/effects";
 import * as AuthActions from "../store/auth";
 import * as BookActions from "../store/book";
 import axios, { setAuthorization } from "../lib/axios";
@@ -18,12 +19,13 @@ function* userLoginSaga({ payload }) {
   yield put(AuthActions.setLoading(true));
   try {
     const { data } = yield axios.post("/me", payload);
-    yield put(AuthActions.userLoginFulfilled(data.token));
+
     setAuthorization(data);
     localStorage.setItem("token", data.token);
-    message.success(`환영합니다 ${payload.email}님`, 1, () => {
-      payload.history.push("/");
-    });
+    yield put(AuthActions.userLoginFulfilled(data.token));
+
+    message.success(`환영합니다 ${payload.email}님`, 1);
+    yield put(replace("/"));
   } catch (error) {
     message.error(error.message);
     yield put(AuthActions.userLoginRejected(error.response));
@@ -34,19 +36,45 @@ function* userLoginSaga({ payload }) {
 function* fetchBookSaga() {
   try {
     const { data } = yield axios.get("/book");
-    yield put(BookActions.fetchBooks(data));
+    yield put(BookActions.fetchBooksFulfilled(data));
   } catch (error) {
     yield put(BookActions.fetchBooksRejected(error.response));
   }
 }
 
+function* postBookSaga({ payload }) {
+  try {
+    const { data } = yield axios.post("/book", payload);
+
+    if (data.bookId) {
+      message.success("책 등록 성공!");
+      yield call(fetchBookSaga);
+    }
+  } catch (error) {
+    console.log("post books error", error);
+  }
+}
+
+function* delBookSaga({ payload }) {
+  try {
+    yield axios.delete(`/book/${payload}`);
+    const books = yield select(state => state.book.books);
+    const afterRemoveBooks = books.filter(book => book.bookId !== payload);
+    yield put(BookActions.deleteBookFulfilled(afterRemoveBooks));
+  } catch (error) {
+    console.log("delBookSaga eror", error);
+  }
+}
+
 function* watchBook() {
-  yield takeEvery(BookActions.FETCH_BOOKS, fetchBookSaga);
+  yield takeLatest(BookActions.FETCH_BOOKS, fetchBookSaga);
+  yield takeLatest(BookActions.POST_BOOK, postBookSaga);
+  yield takeLatest(BookActions.DEL_BOOK, delBookSaga);
 }
 
 function* watchAuth() {
-  yield takeEvery(AuthActions.USER_LOGIN, userLoginSaga);
-  yield takeEvery(AuthActions.USER_LOGOUT, userLogOutSaga);
+  yield takeLatest(AuthActions.USER_LOGIN, userLoginSaga);
+  yield takeLatest(AuthActions.USER_LOGOUT, userLogOutSaga);
 }
 
 export default function* root() {

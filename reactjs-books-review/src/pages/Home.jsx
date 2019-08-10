@@ -1,31 +1,25 @@
 import React from "react";
-import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+
+import BookInfoBox from "../components/BookInfoBox";
+import { fetchBooks } from "../store/book";
 
 import MainLayout from "../components/layout/MainLayout";
 
 const Home = ({ token }) => {
-  const [books, setBooks] = React.useState([]);
+  const dispatch = useDispatch();
+  const books = useSelector(({ book }) => book.books);
 
-  // React.useEffect(() => {
-  //   const fetchBooks = async () => {
-  //     try {
-  //       const books = await axios.get("https://api.marktube.tv/v1/book", {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       });
-  //       setBooks(books.data);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-
-  //   fetchBooks();
-  // }, [token]);
+  React.useEffect(() => {
+    dispatch(fetchBooks());
+  }, [dispatch]);
 
   return (
     <MainLayout>
-      <h1>Home</h1>
+      <h1>내가 등록한 책</h1>
+      {books.map(book => (
+        <BookInfoBox item={book} key={book.bookId} />
+      ))}
     </MainLayout>
   );
 };

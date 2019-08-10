@@ -1,9 +1,11 @@
 import React from "react";
-import { Input, Button } from "antd";
 import styled from "styled-components";
+import _includes from "lodash/includes";
+import { Input, Button, message } from "antd";
 import { useDispatch } from "react-redux";
 
 import MainLayout from "../components/layout/MainLayout";
+import { postBook } from "../store/book";
 
 const { TextArea } = Input;
 
@@ -65,6 +67,16 @@ const Add = () => {
     setTexts(defaultTexts);
   };
 
+  const onAddbook = () => {
+    if (_includes(texts, "")) {
+      message.error("모든 항목을 채워 주세요!");
+      return;
+    }
+
+    dispatch(postBook(texts));
+    onClickClear();
+  };
+
   return (
     <MainLayout>
       <FormWrap>
@@ -106,7 +118,11 @@ const Add = () => {
         </Group>
 
         <ButtonWrapper>
-          <Button type="primary" style={{ marginRight: 20 }}>
+          <Button
+            type="primary"
+            style={{ marginRight: 20 }}
+            onClick={onAddbook}
+          >
             책 추가하기
           </Button>
           <Button type="danger" onClick={onClickClear}>

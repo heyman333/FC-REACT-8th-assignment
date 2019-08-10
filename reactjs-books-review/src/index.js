@@ -1,21 +1,26 @@
+import "antd/dist/antd.css";
 import React from "react";
 import ReactDOM from "react-dom";
 import createSagaMiddleware from "redux-saga";
 import { createStore, applyMiddleware } from "redux";
+import { createBrowserHistory } from "history";
 import { Provider } from "react-redux";
-import "antd/dist/antd.css";
 import { composeWithDevTools } from "redux-devtools-extension/developmentOnly";
+import { routerMiddleware } from "connected-react-router";
 
 import App from "./App";
 import rootReducer from "./store";
 import rootSaga from "./sagas";
 import * as serviceWorker from "./serviceWorker";
 
+export const history = createBrowserHistory();
 const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(
-  rootReducer,
-  composeWithDevTools(applyMiddleware(sagaMiddleware))
+  rootReducer(history),
+  composeWithDevTools(
+    applyMiddleware(sagaMiddleware, routerMiddleware(history))
+  )
 );
 
 sagaMiddleware.run(rootSaga);

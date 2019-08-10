@@ -6,6 +6,19 @@ export const POST_BOOK = "POST_BOOK";
 export const POST_BOOK_FULFILLED = "POST_BOOK_FULFILLED";
 export const POST_BOOK_REJECTED = "POST_BOOK_REJECTED";
 
+export const DEL_BOOK = "DEL_BOOK";
+export const DEL_BOOK_FUFILLED = "DEL_BOOK_FUFILLED";
+
+export const deleteBook = bookId => ({
+  type: DEL_BOOK,
+  payload: bookId,
+});
+
+export const deleteBookFulfilled = books => ({
+  type: DEL_BOOK_FUFILLED,
+  payload: books,
+});
+
 export const postBook = bookInfo => ({
   type: POST_BOOK,
   payload: bookInfo,
@@ -51,6 +64,11 @@ export default (state = INITIAL_STATE, { type, payload, error }) => {
         ...state,
         showError: true,
         error,
+      };
+    case DEL_BOOK_FUFILLED:
+      return {
+        ...state,
+        books: payload,
       };
     default:
       return state;
