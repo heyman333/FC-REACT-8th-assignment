@@ -55,6 +55,7 @@ const Add = () => {
   const dispatch = useDispatch();
 
   const onChange = text => ({ target }) => {
+    console.log(target.value);
     const newTexts = {
       ...texts,
       [text]: target.value,
@@ -73,7 +74,12 @@ const Add = () => {
       return;
     }
 
-    dispatch(postBook(texts));
+    const newTexts = {
+      ...texts,
+      url: `https://${texts.url}`,
+    };
+
+    dispatch(postBook(newTexts));
     onClickClear();
   };
 

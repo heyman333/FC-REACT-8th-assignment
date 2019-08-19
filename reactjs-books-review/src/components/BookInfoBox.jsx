@@ -35,11 +35,22 @@ const DelButton = styled(Button)`
   height: 30px;
 `;
 
+const ButtonWrap = styled.div`
+  display: flex;
+  width: 120px;
+  justify-content: space-between;
+  margin-top: 20px;
+`;
+
 const BookInfoBox = ({ item }) => {
   const dispatch = useDispatch();
 
   const onDelBook = () => {
     dispatch(deleteBook(item.bookId));
+  };
+
+  const onEdit = () => {
+    console.log("수정");
   };
 
   return (
@@ -57,9 +68,14 @@ const BookInfoBox = ({ item }) => {
         <TitleText>책 링크</TitleText>
         <DescText>{item.url}</DescText>
       </Info>
-      <DelButton type="danger" onClick={onDelBook}>
-        삭제
-      </DelButton>
+      <ButtonWrap>
+        <DelButton type="danger" onClick={onDelBook}>
+          삭제
+        </DelButton>
+        <DelButton type="default" onClick={onEdit}>
+          수정
+        </DelButton>
+      </ButtonWrap>
     </Wrap>
   );
 };
