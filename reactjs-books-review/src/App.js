@@ -7,6 +7,7 @@ import { history } from "../src";
 import SignIn from "./pages/SignIn";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
+import BookDetail from "./pages/BookDetail";
 import Add from "./pages/Add";
 import { Helmet } from "react-helmet";
 
@@ -20,6 +21,7 @@ export default function App() {
         <Route path="/signin" component={SignIn} exact />
         <Route path="/" exact component={Home} />
         <Route path="/add" exact component={Add} />
+        <Route path="/bookDetail/:bookId" exact component={BookDetail} />
         <Route component={NotFound} />
       </Switch>
     </ConnectedRouter>

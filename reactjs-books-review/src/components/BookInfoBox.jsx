@@ -2,10 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { Button } from "antd";
+import { push } from "connected-react-router";
 
 import { deleteBook } from "../store/book";
 
-const Wrap = styled.div`
+const Wrap = styled.button`
   box-sizing: border-box;
   padding: 1.5rem;
   border: 1px black solid;
@@ -13,6 +14,12 @@ const Wrap = styled.div`
   flex-direction: column;
   width: 335px;
   margin: 20px 0px;
+  :hover {
+    box-shadow: 0px 0px 15px rgb(144, 144, 144);
+  }
+  :focus {
+    outline: 0;
+  }
 `;
 
 const Info = styled.div`
@@ -54,8 +61,12 @@ const BookInfoBox = ({ item }) => {
     console.log("수정");
   };
 
+  const onClickDetail = () => {
+    dispatch(push(`/bookDetail/${item.bookId}`));
+  };
+
   return (
-    <Wrap className="bookInfobox">
+    <Wrap className="bookInfobox" onClick={onClickDetail}>
       <Info>
         <TitleText>책 제목</TitleText>
         <DescText>{item.title}</DescText>

@@ -15,7 +15,7 @@ const Wrap = styled(Row)`
   justify-content: flex-end;
   align-items: center;
   padding: 44px 256px;
-  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 1px 4px 1px rgba(0, 0, 0, 0.2);
   position: fixed;
   z-index: 100;
   top: 0;
