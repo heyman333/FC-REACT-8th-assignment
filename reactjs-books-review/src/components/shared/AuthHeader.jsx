@@ -4,7 +4,7 @@ import { Row } from "antd";
 import { Button } from "antd";
 import styled from "styled-components";
 import { withRouter, Link, Redirect } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setAuthorization } from "../../lib/axios";
 
 import { setToken, userLogout } from "../../store/auth";
@@ -36,7 +36,11 @@ const ButtonWrap = styled.ul`
 const AuthHeader = ({ history, location }) => {
   const token = localStorage.getItem("token");
   const dispatch = useDispatch();
-  dispatch(setToken(token));
+  const reduxToken = useSelector(state => state.auth.token);
+
+  if (!reduxToken) {
+    dispatch(setToken(token));
+  }
 
   const onClickLogout = () => {
     dispatch(userLogout({ history }));

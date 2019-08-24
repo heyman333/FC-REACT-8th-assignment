@@ -50,6 +50,7 @@ export const fetchBooksRejected = error => ({
 
 const INITIAL_STATE = {
   books: [],
+  loading: false,
 };
 
 export default (state = INITIAL_STATE, { type, payload, error }) => {

@@ -1,5 +1,5 @@
 import { replace } from "connected-react-router";
-import { select, call, all, put, takeLatest } from "redux-saga/effects";
+import { select, all, put, takeLatest } from "redux-saga/effects";
 import * as AuthActions from "../store/auth";
 import * as BookActions from "../store/book";
 import axios, { setAuthorization } from "../lib/axios";
@@ -48,7 +48,6 @@ function* postBookSaga({ payload }) {
 
     if (data.bookId) {
       message.success("책 등록 성공!");
-      yield call(fetchBookSaga);
     }
   } catch (error) {
     console.log("post books error", error);

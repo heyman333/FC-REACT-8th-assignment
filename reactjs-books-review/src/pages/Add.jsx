@@ -55,7 +55,6 @@ const Add = () => {
   const dispatch = useDispatch();
 
   const onChange = text => ({ target }) => {
-    console.log(target.value);
     const newTexts = {
       ...texts,
       [text]: target.value,

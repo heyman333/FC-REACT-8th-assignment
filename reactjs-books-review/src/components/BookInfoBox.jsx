@@ -11,7 +11,8 @@ const Wrap = styled.div`
   border: 1px black solid;
   display: flex;
   flex-direction: column;
-  margin-bottom: 15px;
+  width: 335px;
+  margin: 20px 0px;
 `;
 
 const Info = styled.div`
@@ -54,7 +55,7 @@ const BookInfoBox = ({ item }) => {
   };
 
   return (
-    <Wrap>
+    <Wrap className="bookInfobox">
       <Info>
         <TitleText>책 제목</TitleText>
         <DescText>{item.title}</DescText>

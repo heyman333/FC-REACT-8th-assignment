@@ -1,5 +1,6 @@
 import React from "react";
 import AuthHeader from "../shared/AuthHeader";
+import Footer from "../shared/Footer";
 import styled from "styled-components";
 
 const Wrap = styled.div`
@@ -8,13 +9,16 @@ const Wrap = styled.div`
   flex-direction: column;
 `;
 
-const Layout = styled.div.attrs({ className: "mainLayout" })``;
+const Layout = styled.div.attrs({ className: "mainLayout" })`
+  min-height: 500px;
+`;
 
 const MainLayout = ({ children }) => {
   return (
     <Wrap>
       <AuthHeader />
       <Layout>{children}</Layout>
+      <Footer />
     </Wrap>
   );
 };
