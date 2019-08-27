@@ -15,7 +15,7 @@ const Layout = styled.div.attrs({ className: "mainLayout" })`
 
 const MainLayout = ({ children }) => {
   return (
-    <Wrap>
+    <Wrap data-testid="WRAP">
       <AuthHeader />
       <Layout>{children}</Layout>
       <Footer />

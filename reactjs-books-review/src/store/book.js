@@ -48,7 +48,7 @@ export const fetchBooksRejected = error => ({
   error,
 });
 
-const INITIAL_STATE = {
+export const INITIAL_STATE = {
   books: [],
   loading: false,
 };

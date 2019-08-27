@@ -36,7 +36,7 @@ export const userLoginRejected = error => ({
   error,
 });
 
-const INITIAL_STATE = {
+export const INITIAL_STATE = {
   loading: false,
   token: "",
 };

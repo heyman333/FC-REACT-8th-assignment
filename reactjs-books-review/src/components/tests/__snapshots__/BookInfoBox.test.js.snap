@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<BookInfoBox /> matches snapshot 1`] = `
+<div>
+  <button
+    class="bookInfobox sc-bdVaJa dgxKZg"
+  >
+    <div
+      class="sc-bwzfXH kulSxP"
+    >
+      <div
+        class="sc-htpNat eCmQCD"
+      >
+        책 제목
+      </div>
+      <div
+        class="sc-bxivhb ipTDf"
+      >
+        book title
+      </div>
+      <div
+        class="sc-htpNat eCmQCD"
+      >
+        책 내용
+      </div>
+      <div
+        class="sc-bxivhb ipTDf"
+      >
+        book message
+      </div>
+      <div
+        class="sc-htpNat eCmQCD"
+      >
+        저자
+      </div>
+      <div
+        class="sc-bxivhb ipTDf"
+      >
+        book author
+      </div>
+      <div
+        class="sc-htpNat eCmQCD"
+      >
+        책 링크
+      </div>
+      <div
+        class="sc-bxivhb ipTDf"
+      >
+        book url
+      </div>
+    </div>
+    <div
+      class="sc-EHOje eFrims"
+    >
+      <button
+        class="ant-btn sc-ifAKCX jGaOAa ant-btn-danger"
+        type="button"
+      >
+        <span>
+          삭제
+        </span>
+      </button>
+      <button
+        class="ant-btn sc-ifAKCX jGaOAa ant-btn-default"
+        type="button"
+      >
+        <span>
+          수정
+        </span>
+      </button>
+    </div>
+  </button>
+</div>
+`;

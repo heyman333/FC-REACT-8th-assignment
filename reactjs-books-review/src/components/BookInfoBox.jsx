@@ -74,7 +74,7 @@ const BookInfoBox = ({ item }) => {
         <TitleText>책 내용</TitleText>
         <DescText>{item.message}</DescText>
 
-        <TitleText>저가</TitleText>
+        <TitleText>저자</TitleText>
         <DescText>{item.author}</DescText>
 
         <TitleText>책 링크</TitleText>

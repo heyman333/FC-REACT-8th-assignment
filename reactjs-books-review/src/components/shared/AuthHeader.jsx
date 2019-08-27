@@ -49,7 +49,7 @@ const AuthHeader = ({ history, location }) => {
   if (token) {
     setAuthorization(token);
     return (
-      <Wrap>
+      <Wrap data-testid="HEADER">
         <ButtonWrap>
           {location.pathname !== "/add" && (
             <li>

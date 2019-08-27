@@ -9,7 +9,7 @@ const Wrap = styled.div`
 `;
 
 const Footer = () => {
-  return <Wrap />;
+  return <Wrap data-testid="FOOTER" />;
 };
 
 export default Footer;

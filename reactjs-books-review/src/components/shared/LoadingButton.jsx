@@ -13,7 +13,7 @@ const Button = styled.button`
 const LoadingButton = ({ isLoading, children, ...props }) => {
   return (
     <Button {...props}>
-      {isLoading ? <Spin indicator={antIcon} /> : children}
+      {isLoading ? <Spin indicator={antIcon} data-testid="SPIN" /> : children}
     </Button>
   );
 };
